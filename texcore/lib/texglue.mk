@@ -1,14 +1,10 @@
 # Makefile
 #
 
-BASEDIR:=/path/to/texplates
 WORKDIR:=$(shell mktemp -dt lucy.XXXXXX)
 EMBEDMAP:=kozuka
 
 SRC=$(WORKDIR)/texput
-
-SRCFILES=$(WORKDIR)/embed-kozuka.map $(WORKDIR)/apporeport.sty
-
 
 silencer:=<>/dev/null >&0 2>&0
 silencer_out:=>/dev/null 2>&1
@@ -57,15 +53,6 @@ $(SRC).pdf: $(SRC).dvi
 
 $(WORKDIR):
 	mkdir -p $(WORKDIR)
-
-$(SRCFILES): $(WORKDIR)
-	(cd $(WORKDIR) && ln -sfn $(BASEDIR)/$(notdir $@) . $(silencer))
-
-# XXX: Making style files for successful pull.  The downside is, now
-# you will be required to make them prior to operate Lucy (httpd's
-# typically cannot write to the texplate directory.)
-$(BASEDIR)/apporeport.sty: $(BASEDIR)/apporeport.ins
-	(cd $(BASEDIR) && platex $< $(silencer))
 
 %.ps:	%.dvi
 	(cd $(WORKDIR) && dvips $< $(silencer))

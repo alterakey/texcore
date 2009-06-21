@@ -20,5 +20,6 @@ def make_map():
 
     # CUSTOM ROUTES HERE
     map.connect('/RPC2', controller='core')
-
+    map.connect('/{action}', controller='adhoc')
+    
     return map

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
+  <body>
+    <h1>TeXからPDFをちゃっかり作ってみたりする実験</h1>
+    <p>これを使ってTeXドキュメントを手軽にコンパイルしてPDF文書を手に入れることができます。<br />
+       これでTeX環境をセットアップしたくない、できないボク・ワタシにも簡単にTeX文書が読める！！</p>
+    <p>※TeX文書でdvipdfmxに指示していない限り、サイズはA4で出てきます。</p>
+    <br />
+    ${h.form(h.url_for(controller='adhoc', action='create'), multipart=True)}
+    TeXドキュメント: ${h.file(name='manuscript')}<br />
+    ${h.submit(name='submit', value='PDFを生成する')}
+    ${h.end_form()}
+  </body>
+</html>

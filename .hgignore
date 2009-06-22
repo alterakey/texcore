@@ -2,3 +2,5 @@
 ~$
 \.(orig|rej)$
 \.py[co]$
+build
+dist

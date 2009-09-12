@@ -2,5 +2,6 @@
 ~$
 \.(orig|rej)$
 \.py[co]$
-build
-dist
+^build
+^dist
+^texcore.egg-info

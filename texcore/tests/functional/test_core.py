@@ -5,6 +5,11 @@ from texcore.tests.functional import XMLRPCControllerTestBase
 
 class TestCoreController(XMLRPCControllerTestBase):
     def test_typeset(self):
-        corps = '\relax'
+        corps = r'''%
+\documentclass{jsarticle}
+\begin{document}
+test!
+\end{document}
+'''
         pdf = self.xc.typeset(xmlrpclib.Binary(corps))
         assert 'PDF' in pdf.data

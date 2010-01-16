@@ -1,4 +1,10 @@
-from texcore.tests import *
+import xmlrpclib
 
-class TestCoreController(TestController):
-    pass
+from texcore.tests import *
+from texcore.tests.functional import XMLRPCControllerTestBase
+
+class TestCoreController(XMLRPCControllerTestBase):
+    def test_typeset(self):
+        corps = '\relax'
+        pdf = self.xc.typeset(xmlrpclib.Binary(corps))
+        assert 'PDF' in pdf.data

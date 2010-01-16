@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name='texcore',
-    version='0.1.1',
+    version='0.1.2',
     description='',
     author='',
     author_email='',
@@ -15,7 +15,7 @@ setup(
     install_requires=[
         "Pylons>=0.9.7",
         "SQLAlchemy>=0.5",
-        "Genshi>=0.4",
+        "Genshi>=0.5",
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(exclude=['ez_setup']),

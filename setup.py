@@ -15,7 +15,9 @@ setup(
     install_requires=[
         "Pylons>=0.9.7",
         "SQLAlchemy>=0.5",
-        "Genshi>=0.5",
+        "Genshi>=0.5.1",
+        "nose>=0.11.1",
+        "flup>=1.0.2"
     ],
     setup_requires=["PasteScript>=1.6.3"],
     packages=find_packages(exclude=['ez_setup']),
@@ -33,5 +35,8 @@ setup(
 
     [paste.app_install]
     main = pylons.util:PylonsInstaller
+
+    [paste.server_runner]
+    scgi_thread = texcore.lib.boot:run_scgi_thread
     """,
 )

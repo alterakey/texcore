@@ -14,6 +14,11 @@ use = egg:Paste#http
 host = 0.0.0.0
 port = 5000
 
+#use = egg:texcore#scgi_thread
+#socket = /tmp/texcore.sock
+#umask = 777
+#logRequest = true
+
 [app:main]
 use = egg:texcore
 full_stack = true

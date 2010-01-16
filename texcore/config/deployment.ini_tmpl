@@ -43,6 +43,7 @@ sqlalchemy.url = sqlite:///production.db
 # execute malicious code after an exception is raised.
 set debug = false
 
+texcore.adhoc = false
 
 # Logging configuration
 [loggers]

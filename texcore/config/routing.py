@@ -7,6 +7,8 @@ refer to the routes manual at http://routes.groovie.org/docs/
 from pylons import config
 from routes import Mapper
 
+from paste.deploy.converters import asbool
+
 def make_map():
     """Create, configure and return the routes Mapper"""
     map = Mapper(directory=config['pylons.paths']['controllers'],
@@ -20,7 +22,8 @@ def make_map():
 
     # CUSTOM ROUTES HERE
     map.connect('/RPC2', controller='core')
-    map.connect('/{action}', controller='adhoc')
-    map.connect('/', controller='adhoc', action='index')
+    if asbool(config.get('texcore.adhoc', 'false')):
+        map.connect('/{action}', controller='adhoc')
+        map.connect('/', controller='adhoc', action='index')
     
     return map

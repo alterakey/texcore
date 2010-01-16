@@ -44,12 +44,12 @@ dvi-stream: dvi-scatter nuke
 .PNONY:	all clean dvi ps pdf pdf-scatter dvi-scatter pdf-stream dvi-stream pull dirprep dirnuke
 
 $(SRC).dvi: $(SRCFILES)
-	(cd $(WORKDIR) && cat - > texput.tex && while (true); do platex texput.tex $(silencer_out) || exit $$?; grep -E 'Re-?run.*LaTeX' texput.log $(silencer_out) || break; done)
+	(cd $(WORKDIR) && cat - > texput.tex && while (true); do platex texput.tex $(silencer_out) || exit $$?; grep -E 'Re-?run.*LaTeX' texput.log $(silencer_out) || break; done) || (cd $(WORKDIR) && cat texput.log >&2)
 
 $(SRC).ps: $(SRC).dvi
 
 $(SRC).pdf: $(SRC).dvi
-	(cd $(WORKDIR) && dvipdfmx -f embed-$(EMBEDMAP).map $(notdir $(SRC).dvi) $(silencer))
+	(cd $(WORKDIR) && dvipdfmx -f embed-$(EMBEDMAP).map $(notdir $(SRC).dvi) $(silencer)) || (cd $(WORKDIR) && cat texput.log >&2)
 
 $(WORKDIR):
 	mkdir -p $(WORKDIR)

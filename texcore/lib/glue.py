@@ -1,11 +1,11 @@
-#!/usr/bin/python
-from __future__ import with_statement
 import os
 import subprocess
 
+from pkg_resources import resource_filename
+
 def fork_proc(f=subprocess.PIPE):
 	return subprocess.Popen(
-				'TEXMFHOME=%(here)s/texcore/lib/texmf make -sf %(here)s/texcore/lib/texglue.mk pdf-stream' % dict(here=os.getcwd()),
+				'TEXMFHOME=%(here)s/texmf make -sf %(here)s/texglue.mk pdf-stream' % dict(here=resource_filename('texcore', 'fixtures')),
 				bufsize=8192,
 				stdin=f, stdout=subprocess.PIPE, close_fds=True, shell=True
 			)

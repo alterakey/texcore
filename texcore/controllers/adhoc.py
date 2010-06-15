@@ -3,7 +3,7 @@ import logging
 import os
 
 from pylons import request, response, session, tmpl_context as c
-from pylons.controllers.util import abort, redirect_to
+from pylons.controllers.util import abort
 
 from texcore.lib.base import BaseController, render
 from texcore.lib.exc import TeXOperationError

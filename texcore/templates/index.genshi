@@ -11,9 +11,9 @@
     TeXドキュメント: ${h.file(name='manuscript')}<br />
     ${h.submit(name='submit', value='PDFを生成する')}
     ${h.end_form()}
-    <div py:if="failed">
+    <div py:if="error">
       <hr />
-      処理に失敗しました (コード <span py:replace="code" />)。
+      処理に失敗しました。
       <pre py:content="error" />
       <hr />
       <a href="#form">フォームへ</a>

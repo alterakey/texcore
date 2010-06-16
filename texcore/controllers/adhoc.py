@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 class AdhocController(BaseController):
 
     def index(self):
-        return render('index.genshi', extra_vars=dict(failed=False))
+        return render('index.genshi', extra_vars=dict(error=None))
 	
     def create(self):
         manuscript = request.POST['manuscript']
@@ -22,7 +22,7 @@ class AdhocController(BaseController):
         (stream, error) = p.communicate(manuscript.value)
         code = p.wait()
         if code or error:
-            return render('index.genshi', extra_vars=dict(code=code, error=error, failed=True))
+            return render('index.genshi', extra_vars=dict(error=unicode(TeXOperationError(code, error))))
         response.content_type = 'application/pdf'
         # NB: Use UTF-8 for Safari, Firefox, or other sane browsers,
         # SHIFT-JIS for IE/MacIE, EUC-JP for Netscape 4.7

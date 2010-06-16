@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.0//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
-  <body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:py="http://genshi.edgewall.org/" xml:lang="ja">
+  <body><a name="form" />
     <h1>TeXからPDFをちゃっかり作ってみたりする実験</h1>
     <p>これを使ってTeXドキュメントを手軽にコンパイルしてPDF文書を手に入れることができます。<br />
        これでTeX環境をセットアップしたくない、できないボク・ワタシにも簡単にTeX文書が読める！！</p>
@@ -11,5 +11,12 @@
     TeXドキュメント: ${h.file(name='manuscript')}<br />
     ${h.submit(name='submit', value='PDFを生成する')}
     ${h.end_form()}
+    <div py:if="failed">
+      <hr />
+      処理に失敗しました (コード <span py:replace="code" />)。
+      <pre py:content="error" />
+      <hr />
+      <a href="#form">フォームへ</a>
+    </div>
   </body>
 </html>

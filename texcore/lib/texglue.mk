@@ -49,7 +49,7 @@ $(SRC).dvi: $(SRCFILES)
 $(SRC).ps: $(SRC).dvi
 
 $(SRC).pdf: $(SRC).dvi
-	(cd $(WORKDIR) && dvipdfmx -f embed-$(EMBEDMAP).map $(notdir $(SRC).dvi) $(silencer)) || (cd $(WORKDIR) && cat texput.log >&2)
+	(cd $(WORKDIR) && dvipdfmx -f embed-$(EMBEDMAP).map $(notdir $(SRC).dvi) $(silencer_out) 2>>texput.log) || (cd $(WORKDIR) && cat texput.log >&2)
 
 $(WORKDIR):
 	mkdir -p $(WORKDIR)

@@ -2,6 +2,7 @@
 import logging
 import os
 
+from routes import url_for
 from pylons import request, response, session, tmpl_context as c
 from pylons.controllers.util import abort
 
@@ -27,4 +28,5 @@ class AdhocController(BaseController):
         # NB: Use UTF-8 for Safari, Firefox, or other sane browsers,
         # SHIFT-JIS for IE/MacIE, EUC-JP for Netscape 4.7
         response.headerlist.append(('Content-Disposition', 'attachment; filename="%s"' % u'output.pdf'.encode('UTF-8')))
+        response.headerlist.append(('Refresh', '0; url=%s' % url_for(controller=u'adhoc', action=u'index')))
         return stream

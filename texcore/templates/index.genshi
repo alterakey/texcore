@@ -10,10 +10,19 @@
     ${h.form(h.url_for(controller='adhoc', action='create'), multipart=True)}
     TeXドキュメント: ${h.file(name='manuscript')}<br />
     エンコーディング: ${h.select(
-      'encoding',
-      'utf-8',
-      ['utf-8', 'cp932', 'euc-jp', 'iso-2022-jp']
-    )}<br /><br />
+     'encoding',
+     'utf-8',
+     ['utf-8', 'cp932', 'euc-jp', 'iso-2022-jp']
+   )}<br />
+    フォントの埋め込み: ${h.select(
+     'embedmap',
+     'noembed', [
+       ('noembed', '埋め込まない'),
+       ('kozuka', '小塚'),
+       ('hiragino', 'ヒラギノ'),
+       ('morisawa', 'モリサワ')
+     ]
+   )}<br /><br />
     ${h.submit(name='submit', value='PDFを生成する')}
     ${h.end_form()}
     <div py:if="error">

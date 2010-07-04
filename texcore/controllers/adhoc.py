@@ -21,7 +21,18 @@ class AdhocController(BaseController):
     def create(self):
         manuscript = request.POST['manuscript']
         encoding = request.POST['encoding']
-        p = glue.fork_proc()
+        embedmap = None
+
+        if request.POST['embedmap'] == 'noembed':
+            embedmap = ['ptex-noEmbed', 'otf-noEmbed']
+        if request.POST['embedmap'] == 'kozuka':
+            embedmap = ['ptex-kozuka', 'otf-kozuka']
+        if request.POST['embedmap'] == 'hiragino':
+            embedmap = ['ptex-hiragino', 'otf-hiragino']
+        if request.POST['embedmap'] == 'morisawa':
+            embedmap = ['ptex-morisawa', 'otf-morisawa']
+
+        p = glue.fork_proc(embedmap=embedmap)
         try:
             (stream, error) = p.communicate(Manuscript(manuscript.value, encoding).__str__())
         except UnicodeDecodeError:

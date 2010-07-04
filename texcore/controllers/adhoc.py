@@ -8,6 +8,7 @@ from pylons.controllers.util import abort
 
 from texcore.lib.base import BaseController, render
 from texcore.lib.exc import TeXOperationError
+from texcore.lib.manuscript import Manuscript
 from texcore.lib import glue
 
 log = logging.getLogger(__name__)
@@ -20,7 +21,7 @@ class AdhocController(BaseController):
     def create(self):
         manuscript = request.POST['manuscript']
         p = glue.fork_proc()
-        (stream, error) = p.communicate(manuscript.value)
+        (stream, error) = p.communicate(Manuscript(manuscript.value).__str__())
         code = p.wait()
         if code or error:
             return render('index.genshi', extra_vars=dict(error=unicode(TeXOperationError(code, error))))

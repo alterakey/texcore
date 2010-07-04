@@ -44,6 +44,8 @@ sqlalchemy.url = sqlite:///production.db
 set debug = false
 
 texcore.adhoc = false
+texcore.texmf = %(here)s/../corps/texmf
+texcore.ptex.encoding = UTF-8
 
 # Logging configuration
 [loggers]

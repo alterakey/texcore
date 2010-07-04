@@ -20,8 +20,14 @@ class AdhocController(BaseController):
 	
     def create(self):
         manuscript = request.POST['manuscript']
+        encoding = request.POST['encoding']
         p = glue.fork_proc()
-        (stream, error) = p.communicate(Manuscript(manuscript.value).__str__())
+        try:
+            (stream, error) = p.communicate(Manuscript(manuscript.value, encoding).__str__())
+        except UnicodeDecodeError:
+            return render('index.genshi', extra_vars=dict(error=u'Cannot decode input stream as %s' % encoding))
+        except UnicodeEncodeError:
+            return render('index.genshi', extra_vars=dict(error=u'Cannot transcode input stream as native TeX encoding'))            
         code = p.wait()
         if code or error:
             return render('index.genshi', extra_vars=dict(error=unicode(TeXOperationError(code, error))))

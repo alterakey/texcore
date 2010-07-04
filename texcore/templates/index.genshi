@@ -9,6 +9,11 @@
     <br />
     ${h.form(h.url_for(controller='adhoc', action='create'), multipart=True)}
     TeXドキュメント: ${h.file(name='manuscript')}<br />
+    エンコーディング: ${h.select(
+      'encoding',
+      'utf-8',
+      ['utf-8', 'cp932', 'euc-jp', 'iso-2022-jp']
+    )}<br /><br />
     ${h.submit(name='submit', value='PDFを生成する')}
     ${h.end_form()}
     <div py:if="error">

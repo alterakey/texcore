@@ -12,14 +12,19 @@ log = logging.getLogger(__name__)
 
 class CoreController(XMLRPCController):
     def typeset(self, manuscript):
-        return self._process(Manuscript(manuscript.data))
+        return self._process(manuscript, 'UTF-8')
 
     def typeset_with_encoding(self, encoding, manuscript):
-        return self._process(Manuscript(manuscript.data, encoding=encoding))
+        return self._process(manuscript, encoding)
 
-    def _process(self, manuscript_obj):
+    def _process(self, manuscript_binary, encoding):
         p = glue.fork_proc()
-        (stream, error) = p.communicate(manuscript_obj.__str__())
+        try:
+            (stream, error) = p.communicate(Manuscript(manuscript_binary.data, encoding=encoding).__str__())
+        except UnicodeDecodeError, e:
+            return xmlrpclib.Fault(8000, u'Cannot decode input stream as %s' % encoding) 
+        except UnicodeEncodeError, e:
+            return xmlrpclib.Fault(8000, u'Cannot transcode input stream as native TeX encoding') 
         code = p.wait()
         if code or error:
             return xmlrpclib.Fault(8000, unicode(TeXOperationError(code, error)))

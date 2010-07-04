@@ -12,8 +12,14 @@ log = logging.getLogger(__name__)
 
 class CoreController(XMLRPCController):
     def typeset(self, manuscript):
+        return self._process(Manuscript(manuscript.data))
+
+    def typeset_with_encoding(self, encoding, manuscript):
+        return self._process(Manuscript(manuscript.data, encoding=encoding))
+
+    def _process(self, manuscript_obj):
         p = glue.fork_proc()
-        (stream, error) = p.communicate(Manuscript(manuscript.data).__str__())
+        (stream, error) = p.communicate(manuscript_obj.__str__())
         code = p.wait()
         if code or error:
             return xmlrpclib.Fault(8000, unicode(TeXOperationError(code, error)))

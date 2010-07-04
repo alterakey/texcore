@@ -7,7 +7,7 @@ except ImportError:
 
 setup(
     name='texcore',
-    version='0.1.3',
+    version='0.1.4',
     description='',
     author='',
     author_email='',

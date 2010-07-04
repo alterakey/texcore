@@ -1,4 +1,2 @@
 include texcore/config/deployment.ini_tmpl
-recursive-include texcore/public *
-recursive-include texcore/templates *
-recursive-include texcore/fixtures *
+include texcore/lib/texglue.mk

@@ -1,2 +1,3 @@
 include texcore/config/deployment.ini_tmpl
 include texcore/lib/texglue.mk
+include texcore/templates/index.genshi
